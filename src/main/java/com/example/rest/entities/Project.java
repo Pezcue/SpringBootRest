@@ -28,7 +28,7 @@ public class Project {
     private String description;
 
     @Column(name = "status")
-    private projectStatus status;
+    private String status;
 
     @Column(name = "fecha_creacion")
     private LocalDateTime createDate;

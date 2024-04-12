@@ -1,5 +1,6 @@
 package com.example.rest.Services;
 
+import com.example.rest.DTO.ProjectDTO;
 import com.example.rest.entities.Project;
 import com.example.rest.entities.projectStatus;
 import com.example.rest.repositories.ProjectRepository;
@@ -20,21 +21,19 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project createProject(Project project) {
+    public Project createProject(ProjectDTO projectDTO) {
 
-        // Chequear que el projecto no sea nulo y tenga un nombre
-        if (project == null || project.getName() == null || project.getName().isEmpty()) {
-            throw new IllegalArgumentException("Invalid project details");
-        }
+        Project newProject = new Project();
+        newProject.setName(projectDTO.getName());
+        newProject.setDescription(projectDTO.getDescription());
+        newProject.setStatus(projectStatus.ACTIVE.toString());
+        newProject.setCreateDate(LocalDateTime.now());
+        newProject.setLastUpdatedDate(LocalDateTime.now());
 
-        // Aregarle los atributos por defecto
-        project.setStatus(projectStatus.ACTIVE);
-        project.setCreateDate(LocalDateTime.now());
-
-        // Guardar (?) Preguntar
-        return projectRepository.save(project);
+        // Guardar
+        Project savedProject = projectRepository.save(newProject);
+        return savedProject;
     }
-
 
     @Override
     public Project editProject(Long id, Project project) {

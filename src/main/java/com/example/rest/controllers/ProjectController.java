@@ -1,5 +1,6 @@
 package com.example.rest.controllers;
 
+import com.example.rest.DTO.ProjectDTO;
 import com.example.rest.Services.ProjectServiceImpl;
 import com.example.rest.entities.Project;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,9 @@ public class ProjectController {
 
 
     //POST -> /v1/projects crear un Project
-    @PostMapping
-    public ResponseEntity<Project> createProject(@RequestBody Project project) {
-        Project projectoCreado = projectService.createProject(project);
+    @PostMapping("/")
+    public ResponseEntity<Project> createProject(@RequestBody ProjectDTO projectDTO) {
+        Project projectoCreado = projectService.createProject(projectDTO);
         return ResponseEntity.created(URI.create("/v1/projects" + projectoCreado.getId()))
                 .body(projectoCreado);
     }
@@ -48,11 +49,9 @@ public class ProjectController {
 
     // GET -> /v1/projects/{id} obtener un Project por id
     @GetMapping("/{id}")
-    public ResponseEntity<Project> obtenerProjecto(@PathVariable("id") Long id) {
+    public ResponseEntity<Project> getProject(@PathVariable("id") Long id) {
         Project project = projectService.getProjectById(id);
         return ResponseEntity.ok(project);
     }
-
-
 
 }
