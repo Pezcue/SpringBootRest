@@ -1,6 +1,7 @@
 package com.example.rest.Services;
 
 import com.example.rest.DTO.ProjectDTO;
+import com.example.rest.Exceptions.ApiRequestException;
 import com.example.rest.entities.Project;
 import com.example.rest.entities.projectStatus;
 import com.example.rest.repositories.ProjectRepository;
@@ -46,7 +47,7 @@ public class ProjectServiceImpl implements ProjectService {
 
             return project;
         } else {
-            throw new RuntimeException("El proyecto no existe"); // Cambiar por exp personalizada
+            throw new ApiRequestException("El proyecto no existe con expresion personalizada");
         }
     }
 
@@ -56,7 +57,7 @@ public class ProjectServiceImpl implements ProjectService {
         if(projectOptional.isPresent()){
             projectRepository.deleteById(id);
         } else {
-            throw new RuntimeException("Proyecto con el id: " + id + " no existe.");
+            throw new ApiRequestException("Proyecto con el id: " + id + " no existe.");
         }
     }
 
@@ -66,7 +67,7 @@ public class ProjectServiceImpl implements ProjectService {
         if(projectOptional.isPresent()) {
             return projectOptional.get();
         } else {
-            throw new RuntimeException("Proyecto con el id: " + id + " no existe.");
+            throw new ApiRequestException("Proyecto con el id: " + id + " no existe.");
         }
     }
 

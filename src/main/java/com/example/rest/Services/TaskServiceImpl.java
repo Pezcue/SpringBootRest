@@ -1,6 +1,7 @@
 package com.example.rest.Services;
 
 import com.example.rest.DTO.TaskDTO;
+import com.example.rest.Exceptions.ApiRequestException;
 import com.example.rest.entities.Project;
 import com.example.rest.entities.Task;
 import com.example.rest.entities.TaskStatus;
@@ -28,7 +29,7 @@ public class TaskServiceImpl implements TaskService {
 
         Project proyectoBaseDeDatos = projectRepository.findProjectById(project_id);
         if (proyectoBaseDeDatos != null) {
-            throw new RuntimeException("Ya existe en la base de datos");
+            throw new ApiRequestException("Ya existe en la base de datos");
         }
 
         Task newTask = new Task();
@@ -51,7 +52,7 @@ public class TaskServiceImpl implements TaskService {
         if(taskOptional.isPresent()){
             taskRepository.deleteById(task_id);
         } else {
-            throw new RuntimeException("La tarea no existe"); // cambiar
+            throw new ApiRequestException("La tarea no existe");
         }
     }
 
@@ -61,7 +62,7 @@ public class TaskServiceImpl implements TaskService {
         if(taskOptional.isPresent()){
             return taskOptional.get();
         } else {
-            throw new RuntimeException("La tarea no existe"); // cambiar
+            throw new ApiRequestException("La tarea no existe");
         }
     }
 }

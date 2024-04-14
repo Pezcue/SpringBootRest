@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProjectDTO {
     private String name;
-    private String description;gi
+    private String description;
 
     public ProjectDTO() {
     }
