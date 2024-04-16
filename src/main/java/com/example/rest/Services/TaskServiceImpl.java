@@ -65,4 +65,37 @@ public class TaskServiceImpl implements TaskService {
             throw new ApiRequestException("La tarea no existe");
         }
     }
+
+    @Override
+    public Task updateTaskStatus(Long taskId, String newStatus) throws ApiRequestException {
+        Task task = taskRepository.findById(taskId)
+                .orElseThrow(() -> new ApiRequestException("Task not found with id: " + taskId));
+
+        TaskStatus currentStatus = TaskStatus.valueOf(task.getTaskStatus());
+        TaskStatus updatedStatus;
+
+        try {
+            updatedStatus = TaskStatus.valueOf(newStatus.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new ApiRequestException("el estado " + newStatus + " no es válido");
+        }
+
+        if (!isValidStatusTransition(currentStatus, updatedStatus)) {
+            throw new ApiRequestException("no es posible asignar al estado " + updatedStatus +
+                    " una tarea con estado " + currentStatus);
+        }
+
+        task.setTaskStatus(String.valueOf(updatedStatus));
+        return taskRepository.save(task);
+    }
+
+    private boolean isValidStatusTransition(TaskStatus currentStatus, TaskStatus newStatus) {
+        // validar los estados (Preguntar)
+
+        return (currentStatus == TaskStatus.TODO && newStatus == TaskStatus.IN_PROGRESS) ||
+                (currentStatus == TaskStatus.IN_PROGRESS && (newStatus == TaskStatus.BLOCKED || newStatus == TaskStatus.DONE)) ||
+                (currentStatus == TaskStatus.BLOCKED && (newStatus == TaskStatus.IN_PROGRESS || newStatus == TaskStatus.DONE));
+    }
+
+
 }

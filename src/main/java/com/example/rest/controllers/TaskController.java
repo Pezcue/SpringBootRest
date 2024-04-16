@@ -1,12 +1,14 @@
 package com.example.rest.controllers;
 
 import com.example.rest.DTO.TaskDTO;
+import com.example.rest.Exceptions.ApiRequestException;
 import com.example.rest.Services.TaskServiceImpl;
 import com.example.rest.entities.Task;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/task/")
@@ -38,6 +40,18 @@ public class TaskController {
     public ResponseEntity<Task> getTask(@PathVariable("id") Long task_id){
         Task task = taskService.getTaskById(task_id);
         return ResponseEntity.ok(task);
+    }
+
+    // PATCH // Actualizar Status
+    @PatchMapping("/{id}")
+    public ResponseEntity<Object> updateTaskStatus(@PathVariable("id") Long taskId, @RequestBody Map<String, String> requestBody) {
+        String newStatus = requestBody.get("status");
+        try {
+            Task updatedTask = taskService.updateTaskStatus(taskId, newStatus);
+            return ResponseEntity.ok(updatedTask);
+        } catch (ApiRequestException e) {
+            return ResponseEntity.badRequest().body(Map.of("mensaje", e.getMessage()));
+        }
     }
 
 }

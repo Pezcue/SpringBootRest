@@ -26,6 +26,7 @@ public class Task {
     private String description;
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private String taskStatus;
 
     @Column(name = "tipo")

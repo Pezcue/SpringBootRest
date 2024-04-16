@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Map;
 
 
 @RestController
@@ -52,6 +53,13 @@ public class ProjectController {
     public ResponseEntity<Project> getProject(@PathVariable("id") Long id) {
         Project project = projectService.getProjectById(id);
         return ResponseEntity.ok(project);
+    }
+
+    // GET -> /v1/projects/{id}/board Obtener todas las tareas de un proyecto
+    @GetMapping("/{id}/board")
+    public ResponseEntity<Map<String, Object>> getAllProjectTasks(@PathVariable("id") Long projectId) {
+        Map<String, Object> response = projectService.getAllProjectTasks(projectId);
+        return ResponseEntity.ok(response);
     }
 
 }

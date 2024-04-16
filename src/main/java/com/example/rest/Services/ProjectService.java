@@ -2,6 +2,10 @@ package com.example.rest.Services;
 
 import com.example.rest.DTO.ProjectDTO;
 import com.example.rest.entities.Project;
+import com.example.rest.entities.Task;
+
+import java.util.List;
+import java.util.Map;
 
 public interface ProjectService {
 
@@ -16,4 +20,8 @@ public interface ProjectService {
 
     // para obtener projecto por id
     Project getProjectById(Long id);
+
+    // para obtener todas las tareas de un proyecto por su estado
+    Map<String, Object> getAllProjectTasks(Long projectId);
+
 }
