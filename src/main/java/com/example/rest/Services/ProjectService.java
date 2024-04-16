@@ -24,4 +24,7 @@ public interface ProjectService {
     // para obtener todas las tareas de un proyecto por su estado
     Map<String, Object> getAllProjectTasks(Long projectId);
 
+    // para obtener todas las tareas por fecha de vencimiento
+    List<Task> getDueTasksByProjectId(Long projectId);
+
 }

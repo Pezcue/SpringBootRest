@@ -4,6 +4,7 @@ import com.example.rest.DTO.TaskDTO;
 import com.example.rest.Exceptions.ApiRequestException;
 import com.example.rest.Services.TaskServiceImpl;
 import com.example.rest.entities.Task;
+import com.example.rest.entities.TaskStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,7 +46,15 @@ public class TaskController {
     // PATCH // Actualizar Status
     @PatchMapping("/{id}")
     public ResponseEntity<Object> updateTaskStatus(@PathVariable("id") Long taskId, @RequestBody Map<String, String> requestBody) {
-        String newStatus = requestBody.get("status");
+        String newStatusString = requestBody.get("status");
+
+        TaskStatus newStatus;
+        try {
+            newStatus = TaskStatus.valueOf(newStatusString.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("mensaje", "el estado " + newStatusString + " no es válido"));
+        }
+
         try {
             Task updatedTask = taskService.updateTaskStatus(taskId, newStatus);
             return ResponseEntity.ok(updatedTask);
@@ -53,5 +62,4 @@ public class TaskController {
             return ResponseEntity.badRequest().body(Map.of("mensaje", e.getMessage()));
         }
     }
-
 }

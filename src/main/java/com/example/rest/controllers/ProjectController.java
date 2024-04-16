@@ -3,11 +3,13 @@ package com.example.rest.controllers;
 import com.example.rest.DTO.ProjectDTO;
 import com.example.rest.Services.ProjectServiceImpl;
 import com.example.rest.entities.Project;
+import com.example.rest.entities.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 
 
@@ -24,7 +26,7 @@ public class ProjectController {
     }
 
 
-    //POST -> /v1/projects crear un Project
+    //POST -> /v1/projects // crear un Project
     @PostMapping("/")
     public ResponseEntity<Project> createProject(@RequestBody ProjectDTO projectDTO) {
         Project projectoCreado = projectService.createProject(projectDTO);
@@ -32,7 +34,7 @@ public class ProjectController {
                 .body(projectoCreado);
     }
 
-    // PUT -> /v1/projects/{id} editar un Project
+    // PUT -> /v1/projects/{id} // editar un Project
     @PutMapping("/{id}")
     public ResponseEntity<Project> editProject(@PathVariable("id") Long id,
                                                   @RequestBody Project project) {
@@ -41,25 +43,33 @@ public class ProjectController {
                 .body(proyectoEditado);
     }
 
-    // DELETE -> /v1/projects/{id} eliminar un Project
+    // DELETE -> /v1/projects/{id} // eliminar un Project
     public ResponseEntity<Void> eliminarProjecto(@PathVariable("id") Long id) {
         projectService.deleteProject(id);
         return ResponseEntity.noContent()
                 .build();
     }
 
-    // GET -> /v1/projects/{id} obtener un Project por id
+    // GET -> /v1/projects/{id} // obtener un Project por id
     @GetMapping("/{id}")
     public ResponseEntity<Project> getProject(@PathVariable("id") Long id) {
         Project project = projectService.getProjectById(id);
         return ResponseEntity.ok(project);
     }
 
-    // GET -> /v1/projects/{id}/board Obtener todas las tareas de un proyecto
+    // GET -> /v1/projects/{id}/board // Obtener todas las tareas de un proyecto
     @GetMapping("/{id}/board")
     public ResponseEntity<Map<String, Object>> getAllProjectTasks(@PathVariable("id") Long projectId) {
         Map<String, Object> response = projectService.getAllProjectTasks(projectId);
         return ResponseEntity.ok(response);
+    }
+
+    // GET /v1/projects/{id}/due-task // Obtener todas las tareas de un proyecto por fecha de vencimiento
+
+    @GetMapping("/{id}/due-task")
+    public ResponseEntity<List<Task>> getDueTasksByProjectId(@PathVariable("id") Long projectId) {
+        List<Task> dueTasks = projectService.getDueTasksByProjectId(projectId);
+        return ResponseEntity.ok(dueTasks);
     }
 
 }

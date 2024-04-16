@@ -10,6 +10,7 @@ import com.example.rest.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -99,6 +100,14 @@ public class ProjectServiceImpl implements ProjectService {
                         .collect(Collectors.toList())
         );
     }
+
+    @Override
+    public List<Task> getDueTasksByProjectId(Long projectId) {
+        LocalDate currentDate = LocalDate.now();
+        return taskRepository.findByProjectIdAndDueDateBefore(projectId, currentDate);
+    }
+
+
 
 }
 

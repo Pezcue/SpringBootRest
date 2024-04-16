@@ -18,7 +18,7 @@ public interface TaskService {
     Task getTaskById(Long task_id);
 
     // para actualizar status
-    Task updateTaskStatus(Long taskId, String newStatus) throws ApiRequestException;
+    Task updateTaskStatus(Long taskId, TaskStatus newStatus) throws ApiRequestException;
 
     // Consultar tareas por fecha de vencimiento
 

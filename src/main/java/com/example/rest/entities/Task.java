@@ -25,9 +25,9 @@ public class Task {
     @Column(name = "descripcion")
     private String description;
 
-    @Column(name = "status")
+    @Column(name = "taskStatus")
     @Enumerated(EnumType.STRING)
-    private String taskStatus;
+    private TaskStatus taskStatus;
 
     @Column(name = "tipo")
     private String type;
@@ -72,11 +72,11 @@ public class Task {
         this.description = description;
     }
 
-    public String getTaskStatus() {
+    public TaskStatus getTaskStatus() {
         return taskStatus;
     }
 
-    public void setTaskStatus(String taskStatus) {
+    public void setTaskStatus(TaskStatus taskStatus) {
         this.taskStatus = taskStatus;
     }
 

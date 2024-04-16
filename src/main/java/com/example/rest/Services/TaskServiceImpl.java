@@ -35,7 +35,7 @@ public class TaskServiceImpl implements TaskService {
         Task newTask = new Task();
         newTask.setName(taskDTO.getName());
         newTask.setDescription(taskDTO.getDescription());
-        newTask.setTaskStatus(TaskStatus.TODO.toString());
+        newTask.setTaskStatus(TaskStatus.TODO);
         newTask.setType(taskDTO.getType());
         newTask.setStartDate(taskDTO.getStartDate());
         newTask.setDueDate(taskDTO.getDueDate());
@@ -66,31 +66,22 @@ public class TaskServiceImpl implements TaskService {
         }
     }
 
-    @Override
-    public Task updateTaskStatus(Long taskId, String newStatus) throws ApiRequestException {
+    public Task updateTaskStatus(Long taskId, TaskStatus newStatus) throws ApiRequestException {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new ApiRequestException("Task not found with id: " + taskId));
 
-        TaskStatus currentStatus = TaskStatus.valueOf(task.getTaskStatus());
-        TaskStatus updatedStatus;
+        TaskStatus currentStatus = task.getTaskStatus();
 
-        try {
-            updatedStatus = TaskStatus.valueOf(newStatus.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new ApiRequestException("el estado " + newStatus + " no es válido");
+        if (!isValidStatusTransition(currentStatus, newStatus)) {
+            throw new ApiRequestException("no es posible asignar al estado " + newStatus + " una tarea con estado " + currentStatus);
         }
 
-        if (!isValidStatusTransition(currentStatus, updatedStatus)) {
-            throw new ApiRequestException("no es posible asignar al estado " + updatedStatus +
-                    " una tarea con estado " + currentStatus);
-        }
-
-        task.setTaskStatus(String.valueOf(updatedStatus));
+        task.setTaskStatus(newStatus);
         return taskRepository.save(task);
     }
 
     private boolean isValidStatusTransition(TaskStatus currentStatus, TaskStatus newStatus) {
-        // validar los estados (Preguntar)
+        // validar los estados (tenemos dudas)
 
         return (currentStatus == TaskStatus.TODO && newStatus == TaskStatus.IN_PROGRESS) ||
                 (currentStatus == TaskStatus.IN_PROGRESS && (newStatus == TaskStatus.BLOCKED || newStatus == TaskStatus.DONE)) ||
