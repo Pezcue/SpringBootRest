@@ -27,8 +27,8 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task createTask(long project_id, TaskDTO taskDTO) {
 
-        Project proyectoBaseDeDatos = projectRepository.findProjectById(project_id);
-        if (proyectoBaseDeDatos != null) {
+        Optional <Project> proyectoBaseDeDatos = projectRepository.findById(project_id);
+        if (!proyectoBaseDeDatos.isPresent()) {
             throw new ApiRequestException("Ya existe en la base de datos");
         }
 
@@ -41,6 +41,7 @@ public class TaskServiceImpl implements TaskService {
         newTask.setDueDate(taskDTO.getDueDate());
         newTask.setCreateDate(LocalDate.now());
         newTask.setLastUpdatedDate(LocalDateTime.now());
+        newTask.setProject(proyectoBaseDeDatos.get());
 
         Task savedTask = taskRepository.save(newTask);
         return newTask;

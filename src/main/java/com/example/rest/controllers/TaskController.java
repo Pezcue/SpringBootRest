@@ -19,6 +19,10 @@ public class TaskController {
 
     private TaskServiceImpl taskService;
 
+    public TaskController(TaskServiceImpl taskService) {
+        this.taskService = taskService;
+    }
+
     // POST // Crear tarea
     @PostMapping("/project/{id}")
     public ResponseEntity<Task> createTask(@PathVariable("id") Long project_id, @RequestBody TaskDTO taskDTO) {
