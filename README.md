@@ -25,7 +25,7 @@ This project is a web-based Kanban system for project management. It allows user
 
 ## Configuration and Usage
 
-1. **Clone the repository:** `git clone https://github.com/your-username/kanban-project-management.git`
+1. **Clone the repository:** `git clone https://github.com/Pezcue/SpringBootRest.git`
 2. **Configure the MySQL database:** Update the `application.properties` file with your database configuration.
 3. **Compile and run the application:** `mvn spring-boot:run`
 4. **Access the application:** Open your browser and go to `http://localhost:8080`
@@ -33,13 +33,20 @@ This project is a web-based Kanban system for project management. It allows user
 
 ## Main Endpoints
 
-- ✨ `POST /v1/projects`: Create a new project.
-- ✏️ `PUT /v1/projects/{id}`: Update an existing project.
+### Project Endpoints
+
+- ✨ `POST /v1/projects/`: Create a new project.
+- ✏️ `PUT /v1/projects/{id}`: Edit an existing project.
 - ❌ `DELETE /v1/projects/{id}`: Delete a project.
 - 📝 `GET /v1/projects/{id}`: Get a project by its ID.
 - 📊 `GET /v1/projects/{id}/board`: Get all tasks of a project grouped by status.
-- 🔧 `PATCH /v1/task/{id}`: Update the status of a task.
 - ⏰ `GET /v1/projects/{id}/due-task`: Get overdue tasks of a project.
+
+### Task Endpoints
+- ✨ `POST /v1/task/project/{1id}`: Create a new Task.
+- ✏️ `GET /v1/task/{id}`: Edit an existing Task.
+- ❌ `DELETE /v1/task/{id}`: Delete a Task.
+- 🔧 `PATCH /v1/task/{id}`: Update the status of a task.
 
 ## Authentication and Authorization
 
