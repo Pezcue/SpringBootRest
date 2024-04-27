@@ -4,11 +4,13 @@ This project is a web-based Kanban system for project management. It allows user
 
 ## Diagrams
 
-### 📊 Class Diagram
-[Insert your class diagram here]
+### 📊 UML Diagram
+<img width="891" alt="Diagrama_UML" src="https://github.com/Pezcue/SpringBootRest/assets/88043734/c2e96e00-8215-4ea2-8da4-944893f78d58">
+
 
 ### 🔄 Entity-Relationship Diagram
-[Insert your entity-relationship diagram here]
+<img width="698" alt="Diagrama_DER" src="https://github.com/Pezcue/SpringBootRest/assets/88043734/ef014a87-4bab-42f6-808c-5af79ca42587">
+
 
 ## Technologies Used
 
