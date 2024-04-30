@@ -2,6 +2,10 @@
 
 This project is a web-based Kanban system for project management. It allows users to manage projects, organize tasks into different stages, and track the progress of tasks.
 
+## Demo Video
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=zOBW5pRutWQ)
+
 ## Diagrams
 
 ### 📊 UML Diagram
