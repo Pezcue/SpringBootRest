@@ -3,8 +3,9 @@
 This project is a web-based Kanban system for project management. It allows users to manage projects, organize tasks into different stages, and track the progress of tasks.
 
 ## Demo Video
+<img width="787" alt="Screenshot 2024-04-29 at 11 17 36 PM" src="https://github.com/Pezcue/SpringBootRest/assets/88043734/04364ba1-039f-45c1-bb7e-091d9e46689f">
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=zOBW5pRutWQ)
+[![Watch the video here](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=zOBW5pRutWQ)
 
 ## Diagrams
 
